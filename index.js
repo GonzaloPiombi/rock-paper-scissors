@@ -21,14 +21,16 @@ buttons.forEach((button) => {
 function playGame() {
     computerPlay();
     if (computerChoice === playerChoice) { //Check to see who wins and increase partial wins counter.
-        console.log('It\'s a tie');
+        document.querySelector('.result').textContent = 'It\'s a tie!';
     } else if (computerChoice === 'rock' && playerChoice === 'scissors' || computerChoice === 'paper' && playerChoice === 'rock' 
                     || computerChoice === 'scissors' && playerChoice === 'paper') {
         computerWins++;
         document.getElementById('computer-wins').textContent = `Computer score: ${computerWins}`;
+        document.querySelector('.result').textContent = 'You lose the round!';
     } else {
         playerWins++;
         document.getElementById('player-wins').textContent = `Player score: ${playerWins}`;
+        document.querySelector('.result').textContent = 'You win the round!';
     }
     checkWinner();
 }
@@ -44,9 +46,11 @@ function computerPlay() {
 function checkWinner() {
     if (computerWins === 5) {
         document.querySelector('h2').textContent = 'Computer wins!';
+        document.querySelector('.result').textContent = '';
         playAgain();
     } else if (playerWins === 5) {
         document.querySelector('h2').textContent = 'Player wins!';
+        document.querySelector('.result').textContent = '';
         playAgain();
     } else return;
 }
