@@ -1,59 +1,71 @@
-const rockPapperScissors = ['rock', 'papper', 'scissors'];
+const rockPaperScissors = ['rock', 'paper', 'scissors'];
+const buttons = document.querySelectorAll('button');
 let computerChoice = '';
 let playerChoice = '';
 let computerWins = 0;
 let playerWins = 0;
 
-bestOf5();
 
-//Generate number between 0 and 2 to get a random selection of the array for the computer choice for the round.
-function computerPlay() {
-    computerChoice = Math.floor(Math.random()*3);
-    return computerChoice = rockPapperScissors[computerChoice];
-}
+buttons.forEach((button) => {
 
+    button.addEventListener('click', () => {
+        document.querySelectorAll('div')[3].textContent = '';
+        playerChoice = button.id;
+        playerChoiceImage = document.querySelector(`.${playerChoice}`);
+        document.querySelectorAll('div')[3].appendChild(playerChoiceImage.cloneNode(true)).classList.add('choice-image');
+        playGame();
+    });
+});
 
-function playerSelection() {
-    playerChoice = prompt('Choose between rock, papper or scissors'); //Prompt the user for a choice
-    playerChoice = playerChoice.toLowerCase(); //Lowercase the player's input to allow cases like "RoCK, PAPPER, etc."
-    if (playerChoice === 'rock' || playerChoice === 'papper' || playerChoice === 'scissors') { //Check if the input has a correct value, if not, prompt again till user enters one
-        return playerChoice;
-    } else {
-        alert('Enter a valid value');
-        playerSelection();
-    }
-}
 
 function playGame() {
     computerPlay();
-    playerSelection();
-    console.log(computerChoice);
-    console.log(playerChoice);
-    if (computerChoice === playerChoice) { //Check to see ho wins and increase partial wins counter.
-        alert('It\'s a Tie');
-    } else if (computerChoice === 'rock' && playerChoice === 'scissors' || computerChoice === 'papper' && playerChoice === 'rock' || computerChoice === 'scissors' && playerChoice === 'papper') {
-        alert('You lose the round!');
+    if (computerChoice === playerChoice) { //Check to see who wins and increase partial wins counter.
+        console.log('It\'s a tie');
+    } else if (computerChoice === 'rock' && playerChoice === 'scissors' || computerChoice === 'paper' && playerChoice === 'rock' 
+                    || computerChoice === 'scissors' && playerChoice === 'paper') {
         computerWins++;
+        document.getElementById('computer-wins').textContent = `Computer score: ${computerWins}`;
     } else {
-        alert('You win the round!');
         playerWins++;
+        document.getElementById('player-wins').textContent = `Player score: ${playerWins}`;
     }
+    checkWinner();
 }
 
-//Loop through the game 5 times(rounds)
-function bestOf5() { 
-    for (let i = 0; i < 5; i++) {
-        playGame();
-        console.log(computerWins);
-        console.log(playerWins);
-        //Check to see if computer or player won 3 rounds, then make i = 5 to exit loop.
-        if (computerWins === 3) {
-            alert('You lose the game!')
-            i = 5;
-        } else if (playerWins === 3) {
-            alert('You win the game!')
-            i = 5;
-        }   
-    }
+//Generate number between 0 and 2 to get a random selection of the array for the computer choice for the round. 
+function computerPlay() {
+    computerChoice = Math.floor(Math.random()*3);
+    computerChoice = rockPaperScissors[computerChoice];
+    computerChoiceImage = document.querySelector(`.${computerChoice}`)
+    document.querySelectorAll('div')[3].appendChild(computerChoiceImage.cloneNode(true)).classList.add('choice-image');
 }
 
+function checkWinner() {
+    if (computerWins === 5) {
+        document.querySelector('h2').textContent = 'Computer wins!';
+        playAgain();
+    } else if (playerWins === 5) {
+        document.querySelector('h2').textContent = 'Player wins!';
+        playAgain();
+    } else return;
+}
+
+function playAgain() {
+    buttons.forEach((button) => {
+        button.disabled = true;
+    });
+    const newGame = document.createElement('button');
+    newGame.textContent = 'Play again!';
+    newGame.classList.add('play-again-button');
+    document.querySelector('.play-again-container').appendChild(newGame);
+    newGame.addEventListener('click', () => {
+        buttons.forEach((button) => {
+            button.disabled = false;
+        });
+        document.getElementById('computer-wins').textContent = `Computer wins: ${computerWins = 0}`;
+        document.getElementById('player-wins').textContent = `Player wins: ${playerWins = 0}`;
+        document.querySelector('h2').textContent = '';
+        document.querySelector('.play-again-container').removeChild(newGame);
+    });
+}

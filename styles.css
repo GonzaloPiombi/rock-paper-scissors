@@ -1,0 +1,79 @@
+body {
+    background: #334257;
+    color: white;
+    font-family: 'Play',Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+h1  {
+    font-size: 4rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 3.5rem;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin: 2% 4%;
+}
+
+i {
+    color: #e0e0e0;
+    font-size: 8rem;
+}
+
+.choice-image {
+    margin: 0 6%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.rps-button {
+    background-color: #476072;
+    border-radius: 8px;
+    border: 5px solid #548CA8;
+    cursor: pointer;
+    margin: 2% 3% 3%;
+}
+
+.rps-button:hover {
+    background-color: #548CA8;
+    border-color: #476072;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.counter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.play-again-container {
+    display: flex;
+    justify-content: center;
+}
+
+.play-again-button {
+    background-color: #548CA8;
+    border-radius: 4px;
+    border: 3px solid #476072;
+    font-family: 'Play',Arial, Helvetica, sans-serif;
+    font-size: 2rem;
+    padding: 5px 10px;
+    transition: 0.3s;
+}
+
+.play-again-button:hover {
+    transform: scale(1.3);
+}
